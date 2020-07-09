@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}user: {{user.username}}{% endblock %}
+
+{% block content %}
+<div class="display-1">User Details</div>
+<div class="display-5"><b>username: </b>{{user.username}}</div>
+<div class="display-5"><b>email: </b>{{user.email}}</div>
+<div class="display-5"><b>first name: </b>{{user.first_name}}</div>
+<div class="display-5"><b>last name: </b>{{user.last_name}}</div>
+<div class="display-4">Feedback</div>
+<ul>
+    {% for f in user.feedback %}
+    <li><b>{{f.title}}: </b>{{f.content}}
+        <form action="/feedback/{{f.id}}/delete" method="POST">
+            <button class="btn"><i class="fa fa-trash text-danger" aria-hidden="true"></i></button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+<a class="btn btn-primary my-3" href="/users/{{user.username}}/feedback/add" role="button">Submit Feedback</a>
+<form action="/users/{{user.username}}/delete" method="POST">
+    <button class="btn btn-danger">Delete Account</button>
+</form>
+
+{% endblock %}
